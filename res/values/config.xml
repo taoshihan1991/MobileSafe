@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="serverurl">http://100.66.221.69/updateinfo.json</string>
+    <string name="serverurl">http://100.118.225.67/mobilesafe/updateinfo.json</string>
 </resources>
