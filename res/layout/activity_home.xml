@@ -12,12 +12,20 @@
         android:text="功能列表"
         android:textSize="20sp" />
 
+    <com.qingguow.mobilesafe.ui.FocusedTextView
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:text="手机卫士欢迎您，本手机卫士软件不包含任何多余的服务进程，不包含任何多余的消耗资源的内容"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" />
+
     <GridView
-        android:layout_marginTop="10dp"
-        android:verticalSpacing="10dp"
         android:id="@+id/gv_home_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:numColumns="3" />
+        android:layout_marginTop="10dp"
+        android:numColumns="3"
+        android:verticalSpacing="10dp" />
 
 </LinearLayout>
