@@ -25,6 +25,7 @@
         android:layout_below="@id/tv_splash_version"
         android:layout_centerHorizontal="true" />
 	<TextView 
+	    android:visibility="gone"
 	    android:id="@+id/tv_show_progress"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"

@@ -19,6 +19,7 @@ import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -27,6 +28,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +46,7 @@ public class SplashActivity extends Activity {
 	private String description;
 	private String apkurl;
 	private TextView tv_show_progress;
+	private SharedPreferences sp;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +54,25 @@ public class SplashActivity extends Activity {
 		setContentView(R.layout.activity_splash);
 		tv_splash_version = (TextView) findViewById(R.id.tv_splash_version);
 		tv_splash_version.setText("版本号" + getVersionName());
-		// 检查更新
-		checkVersion();
+		sp = getSharedPreferences("config", MODE_PRIVATE);
+		boolean update = sp.getBoolean("update", false);
+		if (update) {
+			// 检查更新
+			checkVersion();
+		} else {
+			handler.postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					enterHome();
+				}
+			}, 2000);
+		}
+
 		// 界面动画
 		AlphaAnimation aa = new AlphaAnimation(0.2f, 1.0f);
 		aa.setDuration(1000);
 		findViewById(R.id.rl_splash_root).setAnimation(aa);
-		tv_show_progress=(TextView) findViewById(R.id.tv_show_progress);
+		tv_show_progress = (TextView) findViewById(R.id.tv_show_progress);
 	}
 
 	private Handler handler = new Handler() {
@@ -77,37 +92,48 @@ public class SplashActivity extends Activity {
 					public void onClick(DialogInterface arg0, int arg1) {
 						if (Environment.getExternalStorageState().equals(
 								Environment.MEDIA_MOUNTED)) {
-							 FinalHttp finalhttp=new FinalHttp();
-							 finalhttp.download(apkurl,Environment.getExternalStorageDirectory()+"/mobilesafe2.0.apk",new AjaxCallBack<File>(){
-								 //下载失败
-								@Override
-								public void onFailure(Throwable t, int errorNo,
-										String strMsg) {
-									t.printStackTrace();
-									Toast.makeText(getApplicationContext(), "下载失败",
-											1).show();
-									super.onFailure(t, errorNo, strMsg);
-									enterHome();
-								}
-								//正在下载
-								@Override
-								public void onLoading(long count, long current) {
-									int precent=(int)(current*100/count);
-									tv_show_progress.setText("正在下载："+precent+"%");
-									super.onLoading(count, current);
-								}
-								//下载成功
-								@Override
-								public void onSuccess(File t) {
-									Intent intent=new Intent();
-									intent.setAction("android.intent.action.VIEW");
-									intent.addCategory("android.intent.category.DEFAULT");
-									intent.setDataAndType(Uri.fromFile(t), "application/vnd.android.package-archive");
-									startActivity(intent);
-									super.onSuccess(t);
-								}
-								 
-							 });
+							FinalHttp finalhttp = new FinalHttp();
+							finalhttp.download(apkurl,
+									Environment.getExternalStorageDirectory()
+											+ "/mobilesafe2.0.apk",
+									new AjaxCallBack<File>() {
+										// 下载失败
+										@Override
+										public void onFailure(Throwable t,
+												int errorNo, String strMsg) {
+											t.printStackTrace();
+											Toast.makeText(
+													getApplicationContext(),
+													"下载失败", 1).show();
+											super.onFailure(t, errorNo, strMsg);
+											enterHome();
+										}
+
+										// 正在下载
+										@Override
+										public void onLoading(long count,
+												long current) {
+											tv_show_progress.setVisibility(View.VISIBLE);
+											int precent = (int) (current * 100 / count);
+											tv_show_progress.setText("正在下载："
+													+ precent + "%");
+											super.onLoading(count, current);
+										}
+
+										// 下载成功
+										@Override
+										public void onSuccess(File t) {
+											Intent intent = new Intent();
+											intent.setAction("android.intent.action.VIEW");
+											intent.addCategory("android.intent.category.DEFAULT");
+											intent.setDataAndType(
+													Uri.fromFile(t),
+													"application/vnd.android.package-archive");
+											startActivity(intent);
+											super.onSuccess(t);
+										}
+
+									});
 						} else {
 							Toast.makeText(getApplicationContext(), "未检测到SD卡",
 									1).show();

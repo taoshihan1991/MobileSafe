@@ -13,6 +13,8 @@ public class SettingItemView extends RelativeLayout {
 	private TextView tv_title;
 	private TextView tv_desc;
 	private CheckBox cb_status;
+	private String desc_on;
+	private String desc_off;
 	/**
 	 * 初始化View对象
 	 * @param context
@@ -21,6 +23,8 @@ public class SettingItemView extends RelativeLayout {
 		View.inflate(context, R.layout.setting_item_view, this);
 		cb_status=(CheckBox) this.findViewById(R.id.cb_status);
 		tv_desc=(TextView) this.findViewById(R.id.tv_desc);
+		tv_title=(TextView) this.findViewById(R.id.tv_title);
+		
 	}
 	/**
 	 * 判断是否选中
@@ -34,6 +38,11 @@ public class SettingItemView extends RelativeLayout {
 	 * @param status
 	 */
 	public void setChecked(boolean status){
+		if(status){
+			tv_desc.setText(desc_on);
+		}else{
+			tv_desc.setText(desc_off);
+		}
 		cb_status.setChecked(status);
 	}
 	/**
@@ -51,6 +60,10 @@ public class SettingItemView extends RelativeLayout {
 	public SettingItemView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		initView(context);
+		String title=attrs.getAttributeValue("http://schemas.android.com/apk/res/com.qingguow.mobilesafe", "title");
+		tv_title.setText(title);
+		desc_on=attrs.getAttributeValue("http://schemas.android.com/apk/res/com.qingguow.mobilesafe", "desc_on");
+		desc_off=attrs.getAttributeValue("http://schemas.android.com/apk/res/com.qingguow.mobilesafe", "desc_off");
 	}
 
 	public SettingItemView(Context context) {
