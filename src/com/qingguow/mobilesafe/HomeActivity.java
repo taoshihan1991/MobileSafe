@@ -1,8 +1,12 @@
 package com.qingguow.mobilesafe;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -21,21 +25,27 @@ public class HomeActivity extends Activity {
 			R.drawable.app, R.drawable.taskmanager, R.drawable.netmanager,
 			R.drawable.trojan, R.drawable.sysoptimize, R.drawable.atools,
 			R.drawable.settings };
+	private SharedPreferences sp;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
+		//初始化
+		sp=getSharedPreferences("config", MODE_PRIVATE);
 		gv_home_list = (GridView) findViewById(R.id.gv_home_list);
 		mAdapter = new MyAdapter();
 		gv_home_list.setAdapter(mAdapter);
-		//条目的点击事件
+		// 条目的点击事件
 		gv_home_list.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
 				switch (position) {
-				case 8://设置中心
+				case 0://手机防盗
+					startMobileSec();
+					break;
+				case 8:// 设置中心
 					Intent intent = new Intent(HomeActivity.this,
 							SettingActivity.class);
 					startActivity(intent);
@@ -44,6 +54,22 @@ public class HomeActivity extends Activity {
 
 			}
 		});
+	}
+	/**
+	 * 打开手机防盗的对话框
+	 */
+	protected void startMobileSec() {
+		String password=sp.getString("password", "");
+		//设置密码
+		if(TextUtils.isEmpty(password)){
+			AlertDialog.Builder builder=new Builder(this);
+			View view=View.inflate(this, R.layout.dialog_setup_password, null);
+			builder.setView(view);
+			builder.show();
+		}else{
+			//输入密码
+			
+		}
 	}
 
 	private class MyAdapter extends BaseAdapter {
