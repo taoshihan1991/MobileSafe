@@ -1,20 +1,27 @@
 package com.qingguow.mobilesafe;
 
+import com.qingguow.mobilesafe.utils.Md5Util;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class HomeActivity extends Activity {
 	private GridView gv_home_list;
@@ -31,8 +38,8 @@ public class HomeActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
-		//初始化
-		sp=getSharedPreferences("config", MODE_PRIVATE);
+		// 初始化
+		sp = getSharedPreferences("config", MODE_PRIVATE);
 		gv_home_list = (GridView) findViewById(R.id.gv_home_list);
 		mAdapter = new MyAdapter();
 		gv_home_list.setAdapter(mAdapter);
@@ -42,7 +49,7 @@ public class HomeActivity extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
 				switch (position) {
-				case 0://手机防盗
+				case 0:// 手机防盗
 					startMobileSec();
 					break;
 				case 8:// 设置中心
@@ -55,20 +62,95 @@ public class HomeActivity extends Activity {
 			}
 		});
 	}
+
 	/**
 	 * 打开手机防盗的对话框
 	 */
+	private AlertDialog dialog;
+
 	protected void startMobileSec() {
-		String password=sp.getString("password", "");
-		//设置密码
-		if(TextUtils.isEmpty(password)){
-			AlertDialog.Builder builder=new Builder(this);
-			View view=View.inflate(this, R.layout.dialog_setup_password, null);
+		final String password = sp.getString("password", "");
+		// 设置密码
+		if (TextUtils.isEmpty(password)) {
+			AlertDialog.Builder builder = new Builder(this);
+			View view = View
+					.inflate(this, R.layout.dialog_setup_password, null);
 			builder.setView(view);
-			builder.show();
-		}else{
-			//输入密码
-			
+			Button cancel = (Button) view.findViewById(R.id.bt_setpass_cancel);
+			Button ok = (Button) view.findViewById(R.id.bt_setpass_ok);
+			final EditText et_setpass_pass = (EditText) view
+					.findViewById(R.id.et_setpass_pass);
+			final EditText et_setpass_confirm = (EditText) view
+					.findViewById(R.id.et_setpass_confirm);
+			// 确认
+			ok.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View arg0) {
+					String pass = et_setpass_pass.getText().toString().trim();
+					String passConfirm = et_setpass_confirm.getText()
+							.toString().trim();
+					if (TextUtils.isEmpty(pass)
+							|| TextUtils.isEmpty(passConfirm)) {
+						Toast.makeText(HomeActivity.this, "密码不能为空", 0).show();
+						return;
+					}
+					if (pass.equals(passConfirm)) {
+						Editor editor = sp.edit();
+						editor.putString("password", Md5Util.md5Password(pass));
+						editor.commit();
+					} else {
+						Toast.makeText(HomeActivity.this, "密码不一致", 1).show();
+					}
+					dialog.dismiss();
+				}
+			});
+			// 取消
+			cancel.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					dialog.dismiss();
+				}
+			});
+			dialog = builder.show();
+		} else {
+			// 输入密码
+			AlertDialog.Builder builder = new Builder(this);
+			View view = View
+					.inflate(this, R.layout.dialog_enter_password, null);
+			builder.setView(view);
+			Button cancel = (Button) view.findViewById(R.id.bt_setpass_cancel);
+			Button ok = (Button) view.findViewById(R.id.bt_setpass_ok);
+			final EditText et_setpass_pass = (EditText) view
+					.findViewById(R.id.et_enter_pass);
+			// 确认
+			ok.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View arg0) {
+					String pass = et_setpass_pass.getText().toString().trim();
+					if (TextUtils.isEmpty(pass)) {
+						Toast.makeText(HomeActivity.this, "密码不能为空", 0).show();
+						return;
+					}
+					if (Md5Util.md5Password(pass).equals(password)) {
+						dialog.dismiss();
+						Intent intent=new Intent(HomeActivity.this,LostFindActivity.class);
+						startActivity(intent);
+					} else {
+						Toast.makeText(HomeActivity.this, "密码不一致", 1).show();
+					}
+					
+				}
+			});
+			// 取消
+			cancel.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					dialog.dismiss();
+				}
+			});
+			dialog = builder.show();
 		}
 	}
 

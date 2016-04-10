@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tsh="http://schemas.android.com/apk/res/com.qingguow.mobilesafe"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#2D89EF"
+        android:gravity="center"
+        android:text="2.手机卡绑定"
+        android:textColor="#fff"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="8dp"
+        android:text="通过绑定sim："
+        android:textSize="16sp" />
+
+    <TextView
+        style="@style/guide_text_list"
+        android:text="手机重启以后，当检测到sim卡变更时\n发送报警短信" />
+
+    <com.qingguow.mobilesafe.ui.SettingItemView
+        android:id="@+id/siv_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tsh:desc_off="未绑定sim卡"
+        tsh:desc_on="已经绑定sim卡"
+        tsh:title="点击绑定sim卡" >
+    </com.qingguow.mobilesafe.ui.SettingItemView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/presence_invisible" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/presence_online" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/presence_invisible" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/presence_invisible" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <Button
+            style="@style/guide_btn_pre"
+            android:text="上一步" />
+
+        <Button
+            style="@style/guide_btn_next"
+            android:text="下一步" />
+    </RelativeLayout>
+
+</LinearLayout>

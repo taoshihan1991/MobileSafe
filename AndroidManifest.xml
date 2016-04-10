@@ -27,6 +27,11 @@
         </activity>
         <activity android:name="com.qingguow.mobilesafe.HomeActivity" />
         <activity android:name="com.qingguow.mobilesafe.SettingActivity" />
+        <activity android:name="com.qingguow.mobilesafe.LostFindActivity" />
+        <activity android:name="com.qingguow.mobilesafe.SecGuide1Activity" />
+        <activity android:name="com.qingguow.mobilesafe.SecGuide2Activity" />
+        <activity android:name="com.qingguow.mobilesafe.SecGuide3Activity" />
+        <activity android:name="com.qingguow.mobilesafe.SecGuide4Activity" />
     </application>
 
 </manifest>
