@@ -1,11 +1,10 @@
 package com.qingguow.mobilesafe;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class SecGuide3Activity extends Activity {
+public class SecGuide3Activity extends BaseSecGuideActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -13,14 +12,24 @@ public class SecGuide3Activity extends Activity {
 	}
 
 	public void nextStep(View v) {
-		Intent intent = new Intent(this, SecGuide4Activity.class);
-		startActivity(intent);
-		finish();
+		showNext();
 	}
 
 	public void preStep(View v) {
+		showPre();
+	}
+
+	@Override
+	public void showPre() {
 		Intent intent = new Intent(this, SecGuide2Activity.class);
 		startActivity(intent);
-		finish();
+		finish();		
+	}
+
+	@Override
+	public void showNext() {
+		Intent intent = new Intent(this, SecGuide4Activity.class);
+		startActivity(intent);
+		finish();		
 	}
 }

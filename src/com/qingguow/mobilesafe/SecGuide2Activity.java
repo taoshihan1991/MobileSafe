@@ -1,14 +1,13 @@
 package com.qingguow.mobilesafe;
 
-import com.qingguow.mobilesafe.ui.SettingItemView;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
-public class SecGuide2Activity extends Activity {
+import com.qingguow.mobilesafe.ui.SettingItemView;
+
+public class SecGuide2Activity extends BaseSecGuideActivity {
 	private SettingItemView siv_item;
 	private SharedPreferences sp;
 	@Override
@@ -27,14 +26,24 @@ public class SecGuide2Activity extends Activity {
 	}
 
 	public void nextStep(View v) {
+		showNext();
+	}
+
+	public void preStep(View v) {
+		showPre();
+	}
+
+	@Override
+	public void showNext() {
 		Intent intent = new Intent(this, SecGuide3Activity.class);
 		startActivity(intent);
 		finish();
 	}
 
-	public void preStep(View v) {
+	@Override
+	public void showPre() {
 		Intent intent = new Intent(this, SecGuide1Activity.class);
 		startActivity(intent);
-		finish();
+		finish();		
 	}
 }
