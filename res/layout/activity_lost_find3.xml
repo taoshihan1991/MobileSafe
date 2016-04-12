@@ -31,6 +31,7 @@
         android:hint="电话号码" />
 
     <Button
+        android:onClick="selectContacts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"

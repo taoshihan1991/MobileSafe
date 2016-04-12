@@ -27,7 +27,7 @@
         android:text="手机重启以后，当检测到sim卡变更时\n发送报警短信" />
 
     <com.qingguow.mobilesafe.ui.SettingItemView
-        android:id="@+id/siv_item"
+        android:id="@+id/siv_sim"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tsh:desc_off="未绑定sim卡"

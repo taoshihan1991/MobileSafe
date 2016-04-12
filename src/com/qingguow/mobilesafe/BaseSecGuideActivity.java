@@ -8,7 +8,7 @@ import android.view.MotionEvent;
 public abstract class BaseSecGuideActivity extends Activity {
 	// 定义手势识别器
 	protected GestureDetector gestureDetector;
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub

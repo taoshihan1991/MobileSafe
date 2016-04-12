@@ -32,4 +32,11 @@ public class SecGuide3Activity extends BaseSecGuideActivity {
 		startActivity(intent);
 		finish();		
 	}
+	/**
+	 * 选择联系人
+	 */
+	public void selectContacts(View v) {
+		Intent intent=new Intent(this,SelectContactsActivity.class);
+		startActivityForResult(intent, 0);
+	}
 }
