@@ -12,6 +12,7 @@ public class BootCompleteReceiver extends BroadcastReceiver {
 	private SharedPreferences sp;
 	@Override
 	public void onReceive(Context cotext, Intent arg1) {
+		System.out.println("监听到手机开机");
 		sp=cotext.getSharedPreferences("config", Context.MODE_PRIVATE);
 		//读取当前的sim卡序列号
 		tm=(TelephonyManager) cotext.getSystemService(Context.TELEPHONY_SERVICE);
@@ -20,7 +21,7 @@ public class BootCompleteReceiver extends BroadcastReceiver {
 		String saveSim=sp.getString("sim", "");
 		//判断后发短信
 		if(saveSim.equals(relSim)){
-			
+			System.out.println("sim卡正常");
 		}else{
 			//发送报警短息给安全号码
 			System.out.println("sim卡变更了");
