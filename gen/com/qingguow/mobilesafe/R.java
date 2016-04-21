@@ -57,42 +57,46 @@ containing a value of this type.
         public static final int trojan=0x7f02000d;
     }
     public static final class id {
-        public static final int bt_setpass_cancel=0x7f08000a;
-        public static final int bt_setpass_ok=0x7f080009;
-        public static final int cb_status=0x7f080013;
-        public static final int et_enter_pass=0x7f080008;
+        public static final int bt_setpass_cancel=0x7f08000c;
+        public static final int bt_setpass_ok=0x7f08000b;
+        public static final int cb_status=0x7f080015;
+        public static final int et_enter_pass=0x7f08000a;
+        public static final int et_phone=0x7f080003;
         public static final int et_sec_phone=0x7f080002;
-        public static final int et_setpass_confirm=0x7f08000c;
-        public static final int et_setpass_pass=0x7f08000b;
+        public static final int et_setpass_confirm=0x7f08000e;
+        public static final int et_setpass_pass=0x7f08000d;
         public static final int gv_home_list=0x7f080000;
-        public static final int iv_listhome_icon=0x7f08000d;
-        public static final int lv_select_contacts=0x7f080003;
-        public static final int rl_splash_root=0x7f080005;
-        public static final int siv_item=0x7f080004;
+        public static final int iv_listhome_icon=0x7f08000f;
+        public static final int lv_select_contacts=0x7f080005;
+        public static final int rl_splash_root=0x7f080007;
+        public static final int siv_item=0x7f080006;
         public static final int siv_sim=0x7f080001;
-        public static final int tv_contact_name=0x7f08000f;
-        public static final int tv_contact_phone=0x7f080010;
-        public static final int tv_desc=0x7f080012;
-        public static final int tv_listhome_name=0x7f08000e;
-        public static final int tv_show_progress=0x7f080007;
-        public static final int tv_splash_version=0x7f080006;
-        public static final int tv_title=0x7f080011;
+        public static final int tv_address=0x7f080004;
+        public static final int tv_contact_name=0x7f080011;
+        public static final int tv_contact_phone=0x7f080012;
+        public static final int tv_desc=0x7f080014;
+        public static final int tv_listhome_name=0x7f080010;
+        public static final int tv_show_progress=0x7f080009;
+        public static final int tv_splash_version=0x7f080008;
+        public static final int tv_title=0x7f080013;
     }
     public static final class layout {
-        public static final int activity_home=0x7f030000;
-        public static final int activity_lost_find=0x7f030001;
-        public static final int activity_lost_find1=0x7f030002;
-        public static final int activity_lost_find2=0x7f030003;
-        public static final int activity_lost_find3=0x7f030004;
-        public static final int activity_lost_find4=0x7f030005;
-        public static final int activity_select_contacts=0x7f030006;
-        public static final int activity_setting=0x7f030007;
-        public static final int activity_splash=0x7f030008;
-        public static final int dialog_enter_password=0x7f030009;
-        public static final int dialog_setup_password=0x7f03000a;
-        public static final int list_home_item=0x7f03000b;
-        public static final int select_contacts_item=0x7f03000c;
-        public static final int setting_item_view=0x7f03000d;
+        public static final int activity_atools=0x7f030000;
+        public static final int activity_home=0x7f030001;
+        public static final int activity_lost_find=0x7f030002;
+        public static final int activity_lost_find1=0x7f030003;
+        public static final int activity_lost_find2=0x7f030004;
+        public static final int activity_lost_find3=0x7f030005;
+        public static final int activity_lost_find4=0x7f030006;
+        public static final int activity_number_query=0x7f030007;
+        public static final int activity_select_contacts=0x7f030008;
+        public static final int activity_setting=0x7f030009;
+        public static final int activity_splash=0x7f03000a;
+        public static final int dialog_enter_password=0x7f03000b;
+        public static final int dialog_setup_password=0x7f03000c;
+        public static final int list_home_item=0x7f03000d;
+        public static final int select_contacts_item=0x7f03000e;
+        public static final int setting_item_view=0x7f03000f;
     }
     public static final class raw {
         public static final int alarm=0x7f050000;

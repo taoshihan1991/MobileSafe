@@ -52,6 +52,12 @@ public class HomeActivity extends Activity {
 				case 0:// 手机防盗
 					startMobileSec();
 					break;
+				case 7:// 高级工具
+					Intent intentAtools = new Intent(HomeActivity.this,
+							AtoosActivity.class);
+					startActivity(intentAtools);
+					break;
+
 				case 8:// 设置中心
 					Intent intent = new Intent(HomeActivity.this,
 							SettingActivity.class);
@@ -135,12 +141,13 @@ public class HomeActivity extends Activity {
 					}
 					if (Md5Util.md5Password(pass).equals(password)) {
 						dialog.dismiss();
-						Intent intent=new Intent(HomeActivity.this,LostFindActivity.class);
+						Intent intent = new Intent(HomeActivity.this,
+								LostFindActivity.class);
 						startActivity(intent);
 					} else {
 						Toast.makeText(HomeActivity.this, "密码不一致", 1).show();
 					}
-					
+
 				}
 			});
 			// 取消

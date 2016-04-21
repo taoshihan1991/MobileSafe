@@ -1,6 +1,7 @@
 package com.qingguow.mobilesafe;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -56,6 +57,9 @@ public class SplashActivity extends Activity {
 		tv_splash_version.setText("版本号" + getVersionName());
 		sp = getSharedPreferences("config", MODE_PRIVATE);
 		boolean update = sp.getBoolean("update", false);
+
+		// 拷贝号码归属地数据库
+		copyAddressDatabase();
 		if (update) {
 			// 检查更新
 			checkVersion();
@@ -73,6 +77,31 @@ public class SplashActivity extends Activity {
 		aa.setDuration(1000);
 		findViewById(R.id.rl_splash_root).setAnimation(aa);
 		tv_show_progress = (TextView) findViewById(R.id.tv_show_progress);
+	}
+
+	/**
+	 * 拷贝号码归属地
+	 */
+	private void copyAddressDatabase() {
+		try {
+			//判断是否存在
+			File file = new File(getFilesDir(), "address.db");
+			if (file.exists() && file.length() > 0) {
+				return;
+			}
+			InputStream is = getAssets().open("address.db");
+			FileOutputStream fos = new FileOutputStream(file);
+			byte[] buffer = new byte[1024];
+			int len = 0;
+			while ((len = is.read(buffer)) != -1) {
+				fos.write(buffer, 0, len);
+			}
+			is.close();
+			fos.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	private Handler handler = new Handler() {
@@ -113,7 +142,8 @@ public class SplashActivity extends Activity {
 										@Override
 										public void onLoading(long count,
 												long current) {
-											tv_show_progress.setVisibility(View.VISIBLE);
+											tv_show_progress
+													.setVisibility(View.VISIBLE);
 											int precent = (int) (current * 100 / count);
 											tv_show_progress.setText("正在下载："
 													+ precent + "%");

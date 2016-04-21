@@ -1,14 +1,16 @@
 package com.qingguow.mobilesafe.receiver;
 
-import com.qingguow.mobilesafe.R;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
+import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
-import android.widget.Toast;
+import android.text.TextUtils;
+
+import com.qingguow.mobilesafe.R;
+import com.qingguow.mobilesafe.service.GPSService;
 
 public class SmsReceiver extends BroadcastReceiver {
 	private SharedPreferences sp;
@@ -29,6 +31,19 @@ public class SmsReceiver extends BroadcastReceiver {
 					//Toast.makeText(context, "播放报警音乐", 1).show();
 					MediaPlayer mp=MediaPlayer.create(context, R.raw.alarm);
 					mp.start();
+					abortBroadcast();
+					break;
+				case "#*location*#"://得到位置信息
+					Intent intent1=new Intent(context,GPSService.class);
+					context.startService(intent1);
+					String lastLocation= sp.getString("lastlocation", "");
+					//发送短信
+					if(TextUtils.isEmpty(lastLocation)){
+						SmsManager.getDefault().sendTextMessage(sender, null,"getting location", null, null);
+					}else{
+						SmsManager.getDefault().sendTextMessage(sender, null,lastLocation, null, null);
+					}
+					System.out.println("获取位置消息"+lastLocation);
 					abortBroadcast();
 					break;
 				default:
